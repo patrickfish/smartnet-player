@@ -377,7 +377,7 @@ passport.deserializeUser(function(id, done) {
 twitterAuthn = new TwitterStrategy({
     consumerKey: config.twitterConsumerKey, 
     consumerSecret: config.twitterConsumerSecret, 
-    callbackURL: "http://openmhz.com/auth/twitter/callback"
+    callbackURL: config.twitterCallbackUrl
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -971,17 +971,17 @@ function notify_clients(call) {
     }
   }
 }
-watch.createMonitor('/home/luke/smartnet-upload', function(monitor) {
-  monitor.files['*.m4a'];
-  //monitor.files['*.wav'];
-
+watch.createMonitor(config.watchDir, function(monitor) {
+  monitor.files[config.watchFiles];
 
   monitor.on("created", function(f, stat) {
 
     if ((path.extname(f) == '.m4a') && (monitor.files[f] === undefined)) {
       var name = path.basename(f, '.m4a');
+
     /*if ((path.extname(f) == '.wav') && (monitor.files[f] === undefined)) {
       var name = path.basename(f, '.wav');*/
+
       var regex = /([0-9]*)-([0-9]*)_([0-9.]*)/
       var result = name.match(regex);
       //console.log(name);
@@ -991,8 +991,7 @@ watch.createMonitor('/home/luke/smartnet-upload', function(monitor) {
         var tg = parseInt(result[1]);
         var time = new Date(parseInt(result[2]) * 1000);
         var freq = parseFloat(result[3]);
-        //var base_path = '/srv/www/openmhz.com/media';
-        var base_path = '/srv/www/openmhz.com/public/media';
+        var base_path = config.basePath;
         var local_path = "/" + time.getFullYear() + "/" + time.getMonth() + "/" + time.getDate() + "/";
         mkdirp.sync(base_path + local_path, function(err) {
           if (err) console.error(err);
@@ -1235,4 +1234,5 @@ io.sockets.on('connection', function(socket) {
   });
   socket.emit('ready', {});
 });*/
+
 server.listen(3004);

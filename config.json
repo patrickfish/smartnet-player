@@ -1,4 +1,12 @@
 {
 	"dbUser": "scanner",
-	"dbPass": "vcW6rEixic3kdBWj"
+	"dbPass": "",
+	"baseDir": "/var/www/media",
+	"baseUrl": "foo.com",
+	"watchDir": "/path/to/uploads",
+	"watchFiles": "*.m4a",
+	"twitterHandle": "",
+	"twitterConsumerKey": "",
+	"twitterConsumerSecret": "",
+	"twitterCallbackUrl": "http://foo.com/auth/twitter/callback"
 }

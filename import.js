@@ -37,7 +37,7 @@ function add_file(files, i) {
       var result = name.match(regex);
       var tg = parseInt(result[1]);
       var time = new Date(parseInt(result[2]) * 1000);
-      var base_path = '/srv/www/openmhz.com/media';
+      var base_path = config.baseDir;
       var local_path = "/" + time.getFullYear() + "/" + time.getMonth() + "/" + time.getDate() + "/";
       var target_path = base_path + local_path;
       console.log("Target Path: " + target_path);
@@ -97,7 +97,7 @@ function add_file(files, i) {
 
 
 
-var source_path = '/home/luke/smartnet-upload';
+var source_path = config.watchDir;
 
 scanner.open(function(err, scannerDb) {
   db = scannerDb;
